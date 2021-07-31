@@ -17,12 +17,6 @@ public class LocationList {
         }
     }
 
-    void PrintWholeList(){ // Just used for debugging reasons
-        for(int i=1; i<7; i++){
-            System.out.println(i + " " + LocationName.get(i) + " " + LocationStatus.get(i));
-        }
-    }
-
     String GetNameByKey(Integer Input){
         return LocationName.get(Input);
     }
@@ -39,9 +33,5 @@ public class LocationList {
             }
         }
         return LocationKeys;
-    }
-
-    Integer NumberOfElements(){
-        return NumberofValues;
     }
 }

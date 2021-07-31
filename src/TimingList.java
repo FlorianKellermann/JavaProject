@@ -24,20 +24,6 @@ public class TimingList {
         NumberofValues++;
     }
 
-    void PrintWholeList(){
-        for(int i=1; i<=HighestKeyInteger; i++){
-            System.out.println(i + " " + StartTime.get(i) + " " + EndTime.get(i) + " " + PersonID.get(i) + " " + LocationID.get(i));
-        }
-    }
-
-    String GetStartTime(Integer IntegerKey){
-        return StartTime.get(IntegerKey);
-    }
-
-    String GetEndTime(Integer IntegerKey){
-        return EndTime.get(IntegerKey);
-    }
-
     Integer GetPersonID(Integer IntegerKey){
         return PersonID.get(IntegerKey);
     }
