@@ -4,8 +4,8 @@ import java.util.List;
 
 public class PersonenList {
     FunctionLibrary FuncLib = new FunctionLibrary();
-    HashMap<Integer, String> Personen = new HashMap<Integer, String>();
-    int NumberOfInputs = 0;
+    private HashMap<Integer, String> Personen = new HashMap<Integer, String>();
+    private int NumberOfInputs = 0;
 
     void AddToList(String ForInteger, String ForString) {
         int ConvertedInteger = Integer.parseInt(ForInteger); // Converting out ForInteger String into actual Integer

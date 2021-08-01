@@ -5,7 +5,7 @@ import java.lang.reflect.Method;
 public class ProjektTester {
     // Konfiguration eurer Hauptklasse. Bitte vollqualifizierten Klassennamen plus Paket angeben.
     // Z.b. die Klasse MeinProjekt im Paket dhbw.java, muss lauten: 'dhbw.java.MeinProjekt'
-    private static final String MAIN_CLASS = "Main";
+    private static final String MAIN_CLASS = "Project";
 
     public static void main(String[] args) {
         // project.model.Tests are passing
@@ -69,7 +69,7 @@ public class ProjektTester {
                 return true;
             }
         }
-        System.err.println("Feher bei: '" + arg + "'. Erwartetes Ergebnis: '" + resultString + "', erhaltenes Ergebnis: '" + output.replace(System.lineSeparator(), "") + "'");
+        System.err.println("Fehler bei: '" + arg + "'. Erwartetes Ergebnis: '" + resultString + "', erhaltenes Ergebnis: '" + output.replace(System.lineSeparator(), "") + "'");
         return false;
     }
 }

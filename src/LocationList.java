@@ -4,9 +4,9 @@ import java.util.List;
 
 public class LocationList {
     FunctionLibrary FuncLib=new FunctionLibrary();
-    HashMap<Integer, String> LocationName = new HashMap<Integer, String>();
-    HashMap<Integer, String> LocationStatus = new HashMap<Integer, String>();
-    int NumberofValues=0;
+    private HashMap<Integer, String> LocationName = new HashMap<Integer, String>();
+    private HashMap<Integer, String> LocationStatus = new HashMap<Integer, String>();
+    private int NumberofValues=0;
 
     void AddLocation(String ForInteger, String ForName, String ForStatus){
         int ConvertedInteger = Integer.parseInt(ForInteger);
