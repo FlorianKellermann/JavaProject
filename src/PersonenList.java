@@ -15,8 +15,8 @@ public class PersonenList {
         }
     }
 
-    List<Number> GetKeyByValue(String Input){
-        List<Number> PersonKeys = new ArrayList<>();
+    List<Integer> GetKeyByValue(String Input){
+        List<Integer> PersonKeys = new ArrayList<>();
         for(int i=1;i<=NumberOfInputs;i++){
             if(FuncLib.CheckStrings(Input, Personen.get(i))==1){
                 PersonKeys.add(i);

@@ -47,6 +47,7 @@ public class FunctionLibrary {
         String[] ET1Split = EndTime1.split("T");
         String[] ST2Split = StartTime2.split("T");
         String[] ET2Split = EndTime2.split("T");
+        System.out.println("FuncLib: "+ST1Split[1]+" "+ET1Split[1]+" "+ST2Split[1]+" "+ET2Split[1]); //debug
         String[] ST1Time = ST1Split[1].split(":");
         String[] ET1Time = ET1Split[1].split(":");
         String[] ST2Time = ST2Split[1].split(":");

@@ -4,12 +4,12 @@ import java.util.List;
 
 public class TimingList {
     FunctionLibrary FuncLib = new FunctionLibrary();
-    HashMap<Integer, String> StartTime = new HashMap<Integer, String>();
-    HashMap<Integer, String> EndTime = new HashMap<Integer, String>();
-    HashMap<Integer, Integer> PersonID = new HashMap<Integer, Integer>();
-    HashMap<Integer, Integer> LocationID = new HashMap<Integer, Integer>();
-    int HighestKeyInteger=0;
-    int NumberofValues = 0;
+    private HashMap<Integer, String> StartTime = new HashMap<Integer, String>();
+    private HashMap<Integer, String> EndTime = new HashMap<Integer, String>();
+    private HashMap<Integer, Integer> PersonID = new HashMap<Integer, Integer>();
+    private HashMap<Integer, Integer> LocationID = new HashMap<Integer, Integer>();
+    private int HighestKeyInteger=0;
+    private int NumberofValues = 0;
 
 
     void AddTiming(Integer KeyInteger, String StartTimeInput, String EndTimeInput, String ForPersonID, String ForLocationID){
@@ -22,10 +22,6 @@ public class TimingList {
         PersonID.put(KeyInteger, PersonIDInput);
         LocationID.put(KeyInteger, LocationIDInput);
         NumberofValues++;
-    }
-
-    Integer GetPersonID(Integer IntegerKey){
-        return PersonID.get(IntegerKey);
     }
 
     Integer GetLocationID(Integer IntegerKey){
@@ -56,8 +52,10 @@ public class TimingList {
 
     List<Integer> GetPersonsForTimeStamp(Integer pLocationID, String pTimeStamp){
         List<Integer> Contacts = new ArrayList<>();
-        for (int i = 1; i < NumberofValues; i++) {
+        for (int i = 1; i < NumberofValues; i++) { //debug drunter
+            System.out.println("AusTiming: "+LocationID.get(i)+" / "+pLocationID+ " / " + FuncLib.CheckTimeSimilarity(pTimeStamp,pTimeStamp,StartTime.get(i), EndTime.get(i))+ " " +pTimeStamp+" "+ StartTime.get(i)+" "+EndTime.get(i) );
             if(LocationID.get(i) == pLocationID && FuncLib.CheckTimeSimilarity(pTimeStamp,pTimeStamp,StartTime.get(i), EndTime.get(i)) == 1){
+                System.out.println("TimingsTrue"); //debug
                 Contacts.add(PersonID.get(i));
             }
         }

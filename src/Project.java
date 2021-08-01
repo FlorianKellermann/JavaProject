@@ -112,7 +112,7 @@ public class Project {
     }
 
     static void PersonSearch(String pPersonName){
-        List<Number> PersonKeys = new ArrayList<>();
+        List<Integer> PersonKeys = new ArrayList<>();
         List<Integer> LocationKeys = new ArrayList<>();
         PersonKeys = Personen.GetKeyByValue(pPersonName); // searching for name in List and saving the key
         if(PersonKeys.isEmpty()){
@@ -121,12 +121,12 @@ public class Project {
         else{
             System.out.println("Es wurde(-n) " + PersonKeys.size() + " Person(-en) zur Suche gefunden.");
             for(int i=0; i<PersonKeys.size();i++){
-                String PersonName = Personen.GetElementByInteger(PersonKeys.get(i).intValue());
-                LocationKeys = Timings.GetKeyForPersonID(PersonKeys.get(i).intValue());
+                String PersonName = Personen.GetElementByInteger(PersonKeys.get(i));
+                LocationKeys = Timings.GetKeyForPersonID(PersonKeys.get(i));
                 System.out.println("\n"+PersonName +" ("+PersonKeys.get(i)+") war zu Besuch in");
                 System.out.println("===============================");
                 for(int j=0;j<LocationKeys.size();j++){
-                    Integer LocationKey = Timings.GetLocationID(LocationKeys.get(j).intValue());
+                    Integer LocationKey = Timings.GetLocationID(LocationKeys.get(j));
                     String LocationName = Locations.GetNameByKey(LocationKey);
                     System.out.println(LocationName);
                 }
@@ -180,6 +180,7 @@ public class Project {
         List<Integer> ContactIDs = new ArrayList<>();
         List<String> ContactNames = new ArrayList<>();
         String AusgabeString = new String("");
+        System.out.println("Aus Project GL: "+GivenLocation+" " + GivenTimeStamp); //debug
         ContactIDs = Timings.GetPersonsForTimeStamp(GivenLocation, GivenTimeStamp);
         ContactIDs = FuncLib.NoDoubles(ContactIDs); //doppelte austauschen
         for (int i = 0; i < ContactIDs.size(); i++) {
