@@ -93,11 +93,12 @@ public class Project {
                 ToStringList.add(Personen.GetElementByInteger(ReturnList.get(i)));
             }
             ToStringList = FuncLib.SortAscending(ToStringList);
-
-            System.out.println("Kontakte für "+Personen.GetElementByInteger(PersonID)+"\n=======================");
-            for (int i = 0; i < ToStringList.size(); i++) {
-                System.out.println(ToStringList.get(i));
+            String AusgabeString = new String("");
+            for(int i=0; i< ToStringList.size();i++){
+                AusgabeString = AusgabeString + ToStringList.get(i)+", ";
             }
+            AusgabeString = AusgabeString.substring(0, AusgabeString.length()-2);
+            System.out.println(AusgabeString);
         }
         else if(FirstSplit[0].equals("--besucher")){
             String[] SecondSplit;
@@ -122,7 +123,7 @@ public class Project {
             for(int i=0; i<PersonKeys.size();i++){
                 String PersonName = Personen.GetElementByInteger(PersonKeys.get(i).intValue());
                 LocationKeys = Timings.GetKeyForPersonID(PersonKeys.get(i).intValue());
-                System.out.println("\n"+PersonName +" war zu Besuch in");
+                System.out.println("\n"+PersonName +" ("+PersonKeys.get(i)+") war zu Besuch in");
                 System.out.println("===============================");
                 for(int j=0;j<LocationKeys.size();j++){
                     Integer LocationKey = Timings.GetLocationID(LocationKeys.get(j).intValue());
@@ -135,7 +136,6 @@ public class Project {
 
     static void PlaceSearch(String pLocationName){
         List <Integer> FoundLocationKeys = new ArrayList<>();
-        List <Integer> FoundLocationTimings = new ArrayList<>();
         FoundLocationKeys = Locations.GetKeyFromAttribute(pLocationName);
         if(FoundLocationKeys.isEmpty()){
             System.err.println("No Locations found for your request");
@@ -145,13 +145,7 @@ public class Project {
             for (int i = 0; i < FoundLocationKeys.size(); i++) {
                 String LocationName = Locations.GetNameByKey(FoundLocationKeys.get(i));
                 String LocationStatus = Locations.GetStatusByKey(FoundLocationKeys.get(i));
-                FoundLocationTimings = Timings.GetKeyForLocationID(FoundLocationKeys.get(i));
-                System.out.println("Der Ort "+LocationName+"("+LocationStatus+") hat die ID " +FoundLocationKeys.get(i)+" und wurde besucht von: \n===============================");
-                for (int j = 0; j < FoundLocationTimings.size(); j++) {
-                    int BesucherID = Timings.GetPersonID(FoundLocationTimings.get(j));
-                    String BesucherName = Personen.GetElementByInteger(BesucherID);
-                    System.out.println(BesucherName+" ("+BesucherID+")");
-                }
+                System.out.println("Der Ort "+LocationName+" ("+LocationStatus+") hat die ID " +FoundLocationKeys.get(i)+".");
             }
         }
     }
@@ -159,7 +153,7 @@ public class Project {
     static List<Integer> ContactPersonSearch(Integer pPersonID){
         List<Integer> pPersonTimingKeys = new ArrayList<>();
         List<Integer> pPersonTimingKeysAfterLocation = new ArrayList<>();
-        List<Integer> pPersonLocationIDs = new ArrayList<>(); //Need these three informations about him
+        List<Integer> pPersonLocationIDs = new ArrayList<>(); //Need these three informations about the person
         List<Integer> ContactPersonIDs = new ArrayList<>();
         List<Integer> TempList = new ArrayList<>();
         pPersonTimingKeys = Timings.GetKeyForPersonID(pPersonID); // Getting all timingKeys where the person is mentioned
@@ -185,46 +179,32 @@ public class Project {
     static void VisitorSearch(Integer GivenLocation, String GivenTimeStamp){
         List<Integer> ContactIDs = new ArrayList<>();
         List<String> ContactNames = new ArrayList<>();
+        String AusgabeString = new String("");
         ContactIDs = Timings.GetPersonsForTimeStamp(GivenLocation, GivenTimeStamp);
         ContactIDs = FuncLib.NoDoubles(ContactIDs); //doppelte austauschen
         for (int i = 0; i < ContactIDs.size(); i++) {
             ContactNames.add(Personen.GetElementByInteger(ContactIDs.get(i)));
         }
-        ContactNames=FuncLib.SortAscending(ContactNames); //aufsteigend sortieren
-        System.out.println("Zu diesem Zeitpunkt anwesende Personen");
-        System.out.println("=================================================");
         if(ContactNames.isEmpty()){
-            System.out.println("Nobody!");
-        }
-        else{
-            for (int i = 0; i < ContactNames.size(); i++) { // print all elements
-                System.out.println(ContactNames.get(i));
-            }
+            System.err.println("Nobody found!");
         }
         if(Locations.GetStatusByKey(GivenLocation).equals("out_door")){ // if Location is outdoor
-            System.out.println("Die Location ist Outdoor. Dies waren alle Kontake.");
+            ContactNames = FuncLib.SortAscending(ContactNames);
+            for (int i = 0; i < ContactNames.size(); i++) {
+                AusgabeString = AusgabeString + ContactNames.get(i) +", ";
+            }
+            AusgabeString = AusgabeString.substring(0, AusgabeString.length()-2);
+            System.out.println(AusgabeString);
         }
         else{
-            System.out.println("\nIndirekte Kontakte\n===============");
             List<Integer> TempList = new ArrayList<>();
             List<Integer> SecondContactID = new ArrayList<>();
             List<String> SecondContactName = new ArrayList<>();
-            int Same = 0;
             for(int i=0;i<ContactIDs.size(); i++){
                 TempList = ContactPersonSearch(ContactIDs.get(i));
+                SecondContactID.add(ContactIDs.get(i));
                 for (int j = 0; j < TempList.size(); j++) {
-                    for(int c=0; c<ContactIDs.size(); c++){
-                        if(TempList.get(j)==ContactIDs.get(c)){
-                            Same = 1;
-                        }
-                    }
-                    if(Same==0){
-                        SecondContactID.add(TempList.get(j));
-                    }
-                    else{
-                        Same = 0;
-                    }
-
+                    SecondContactID.add(TempList.get(j));
                 }
             }
             SecondContactID = FuncLib.NoDoubles(SecondContactID);
@@ -233,8 +213,10 @@ public class Project {
             }
             SecondContactName = FuncLib.SortAscending(SecondContactName);
             for (int i = 0; i < SecondContactName.size(); i++) {
-                System.out.println(SecondContactName.get(i));
+                AusgabeString = AusgabeString + SecondContactName.get(i)+", ";
             }
+            AusgabeString = AusgabeString.substring(0, AusgabeString.length()-2);
+            System.out.println(AusgabeString);
         }
     }
 }

@@ -5,7 +5,7 @@ import java.lang.reflect.Method;
 public class ProjektTester {
     // Konfiguration eurer Hauptklasse. Bitte vollqualifizierten Klassennamen plus Paket angeben.
     // Z.b. die Klasse MeinProjekt im Paket dhbw.java, muss lauten: 'dhbw.java.MeinProjekt'
-    private static final String MAIN_CLASS = "Project";
+    private static final String MAIN_CLASS = "src.Project";
 
     public static void main(String[] args) {
         // project.model.Tests are passing

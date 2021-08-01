@@ -42,24 +42,13 @@ public class TimingList {
         return KeyList;
     }
 
-    List<Integer> GetKeyForLocationID(Integer pFindPerson){
-        List<Integer> KeyList = new ArrayList<>(); // generating list for returning all keys
-        for(int i=1;i<NumberofValues;i++){
-            if(LocationID.get(i).equals(pFindPerson)){
-                KeyList.add(i);
-            }
-        }
-        return KeyList;
-    }
-
     List<Integer> GetPersonsForLocationID(Integer pLocationID, Integer VisitorID, Integer pRefKey){
         List<Integer> ForReturnIDs = new ArrayList<>();
-        for (int i = 1; i < NumberofValues; i++) {
-            if(LocationID.get(i)==pLocationID && PersonID.get(i)!=VisitorID){ // Hier muss ich noch checken ob sie auch gleichzeitig da waren
+        for (int i = 1; i <= NumberofValues; i++) {
+            if(LocationID.get(i)==pLocationID && PersonID.get(i)!=VisitorID){
                 if(FuncLib.CheckTimeSimilarity(StartTime.get(pRefKey), EndTime.get(pRefKey), StartTime.get(i), EndTime.get(i)) == 1){
                     ForReturnIDs.add(PersonID.get(i));
                 }
-
             }
         }
         return ForReturnIDs;
