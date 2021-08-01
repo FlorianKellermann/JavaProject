@@ -4,6 +4,13 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 public class FunctionLibrary {
+
+    /*
+        Method: CheckStrings
+        Parameters: String FirstWord, String SecondWord
+        Return : Integer
+        purpose: Checking strings without depending on case. Also true if first word is part of the second one
+     */
     public Integer CheckStrings(String FirstWord, String SecondWord){ //Checking if the words are equal or if FirstWord is contained in SecondWord
         int NumberOfMatches=0;
         FirstWord = FirstWord.toUpperCase(); //converting both to Upper case so I can compare them correctly
@@ -32,6 +39,13 @@ public class FunctionLibrary {
         return 0;
     }
 
+
+    /*
+        Method: NoDoubles
+        Parameters: List<Integer> pList
+        Return : List<Integer>
+        purpose: Returning the same list without having any doubled elements
+     */
     public List<Integer> NoDoubles(List<Integer> pList){
         List<Integer> eList = pList.stream()
                 .distinct()
@@ -41,13 +55,17 @@ public class FunctionLibrary {
     }
 
 
-
+    /*
+        Method: CheckTimeSimilarity
+        Parameters: String StartTime1, String EndTime1, String StartTime2, String EndTime2
+        Return : Integer (0-false / 1-true)
+        purpose: checking if timestamps are overlaying (persons met)
+     */
     public Integer CheckTimeSimilarity(String StartTime1, String EndTime1, String StartTime2, String EndTime2){ //checking if they have been at the same place at the same time
         String[] ST1Split = StartTime1.split("T"); //Splitting up into date and time
         String[] ET1Split = EndTime1.split("T");
         String[] ST2Split = StartTime2.split("T");
         String[] ET2Split = EndTime2.split("T");
-        System.out.println("FuncLib: "+ST1Split[1]+" "+ET1Split[1]+" "+ST2Split[1]+" "+ET2Split[1]); //debug
         String[] ST1Time = ST1Split[1].split(":");
         String[] ET1Time = ET1Split[1].split(":");
         String[] ST2Time = ST2Split[1].split(":");
@@ -84,8 +102,7 @@ public class FunctionLibrary {
         else{
             System.err.println("Unterschiedliche Datumsangaben!");
         }
-
-        switch (FirstArriving) {
+        switch (FirstArriving) { //finding order of arriving and leaving ->information about overlay and return 1 or 0
             case 0:
                 if(Integer.parseInt(ET1Time[0])<Integer.parseInt(ST2Time[0])){
                     return 0;
@@ -110,7 +127,7 @@ public class FunctionLibrary {
                     return 1;
                 }
             case 1:
-                if(Integer.parseInt(ET1Time[0])<Integer.parseInt(ST2Time[0])){
+                if(Integer.parseInt(ET2Time[0])<Integer.parseInt(ST1Time[0])){
                     return 0;
                 }
                 else if(ET2Time[0].equals(ST1Time[0])){
@@ -135,14 +152,14 @@ public class FunctionLibrary {
             case 2:
                 return 1;
             default:
-                System.err.println("Problem with if statement whie checking similarity");
+                System.err.println("Problem with if statement while checking similarity");
                 break;
         }
 
         return 0;
     }
 
-    public List<String> SortAscending(List<String> ToBeSorted){
+    public List<String> SortAscending(List<String> ToBeSorted){ //sorting all strings in an ascending order
         ToBeSorted.sort(Comparator.comparing(String::toString));
         return ToBeSorted;
     }

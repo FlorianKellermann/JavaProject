@@ -8,27 +8,41 @@ public class LocationList {
     private HashMap<Integer, String> LocationStatus = new HashMap<Integer, String>();
     private int NumberofValues=0;
 
-    void AddLocation(String ForInteger, String ForName, String ForStatus){
-        int ConvertedInteger = Integer.parseInt(ForInteger);
+
+    /*
+        Method: AddLocation
+        Parameters: String ForInteger, String ForName, String ForStatus
+        Return : none
+        purpose: adding location to class
+     */
+    void AddLocation(String ForInteger, String ForName, String ForStatus){ //adding locationdetails to the hashmaps
+        int ConvertedInteger = Integer.parseInt(ForInteger); // converting the string key to integer
         if(LocationName.get(ConvertedInteger)==null){
             LocationName.put(ConvertedInteger, ForName);
             LocationStatus.put(ConvertedInteger, ForStatus);
-            NumberofValues++;
+            NumberofValues++; // one up the number of elements
         }
     }
 
-    String GetNameByKey(Integer Input){
+    String GetNameByKey(Integer Input){ //simply get the LocationName from the ID (variable is private so i need it)
         return LocationName.get(Input);
     }
 
-    String GetStatusByKey(Integer Input){
+    String GetStatusByKey(Integer Input){ // same for status
         return LocationStatus.get(Input);
     }
 
-    List<Integer> GetKeyFromAttribute(String Attribute){
+
+    /*
+        Method: GetKeyFromAttribute
+        Parameters: String Attribute
+        Return : List<Integer>
+        purpose: Finding all LocationIds matching the name attribute
+     */
+    List<Integer> GetKeyFromAttribute(String Attribute){ // getting key for all matching locationnames
         List<Integer> LocationKeys = new ArrayList<>();
         for(int i=1;i<=NumberofValues;i++){
-            if(FuncLib.CheckStrings(Attribute, LocationName.get(i))==1){
+            if(FuncLib.CheckStrings(Attribute, LocationName.get(i))==1){ // used to ignore case and word length
                 LocationKeys.add(i);
             }
         }
